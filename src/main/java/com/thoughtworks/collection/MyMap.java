@@ -3,6 +3,7 @@ package com.thoughtworks.collection;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,14 +19,14 @@ public class MyMap {
     }
 
     public List<Integer> getTriple() {
-        return array.stream().map(s -> s * 3).collect(Collectors.toList());
+        return array.stream().map(number -> number * 3).collect(Collectors.toList());
     }
 
     public List<String> mapLetter() {
-        return array.stream().map(integer -> letterList.get(integer - 1)).collect(Collectors.toList());
+        return array.stream().map(number -> letterList.get(number - 1)).collect(Collectors.toList());
     }
 
     public List<Integer> sortFromBig() {
-        return array.stream().sorted((o1, o2) -> o2 - o1).collect(Collectors.toList());
+        return array.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
     }
 }

@@ -14,7 +14,7 @@ public class Filter {
     }
 
     public List<Integer> filterEven() {
-        return array.stream().filter(integer -> integer % 2 == 0).collect(Collectors.toList());
+        return array.stream().filter(number -> number % 2 == 0).collect(Collectors.toList());
     }
 
     public List<Integer> filterMultipleOfThree() {

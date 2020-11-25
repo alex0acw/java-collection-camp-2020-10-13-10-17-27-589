@@ -3,6 +3,8 @@ package com.thoughtworks.collection;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class Reduce {
 
@@ -13,24 +15,22 @@ public class Reduce {
     }
 
     public double getAverage() {
-        return arrayList.stream()
-                .mapToDouble(Integer::doubleValue)
-                .reduce(0d, (left, right) -> left + right / arrayList.size());
+        return (float) arrayList.stream().reduce(0, Integer::sum) / arrayList.size();
     }
 
     public int getMaxValue() {
-        return arrayList.stream().reduce(null, (integer, integer2) -> {
-            if (integer == null) return integer2;
-            else if (integer2 > integer) return integer2;
-            return integer;
-        });
+        Optional<Integer> max = arrayList.stream().reduce(Integer::max);
+        if (max.isPresent())
+            return max.get();
+        else
+            throw new NoSuchElementException();
     }
 
     public int getLastOdd() {
-        return arrayList.stream().reduce(null, (integer, integer2) -> {
-            if (integer2 % 2 != 0)
-                return integer2;
-            else return integer;
-        });
+        return arrayList.stream().reduce(null,
+                (accumulated, current) ->
+                        ((current % 2 != 0) ?
+                                current : accumulated)
+        );
     }
 }
